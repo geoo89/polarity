@@ -1,3 +1,4 @@
+import json
 import numpy as np
 import os
 import pygame
@@ -30,7 +31,7 @@ class Orb:
 
 
 class Physics:
-    COLOUMB_CONSTANT = 4000
+    COLOUMB_CONSTANT = 10000
 
     def from_json(json, FPS):
         goals = json["orbs"]
@@ -87,45 +88,59 @@ class Physics:
                         self.win = True
 
 
+class Level:
+    def __init__(self, filename, title):
+        self.filename = filename
+        self.title = title
+
+    def get_json(self, screen_height):
+        return ipe_to_json(self.filename, screen_height)
+
+
 class App:
     def __init__(self):
         self._running = True
         self._display_surf = None
-        self.size = self.weight, self.height = 1280, 800
+        self.size = self.width, self.height = 1280, 800
         self.FPS = 60
         self.level_list = self.get_level_list("levels/")
         self.current_level = 0
         self.physics = None
+        self.font = None
+        self.state = 'preview'
 
     def get_level_list(self, folder):
+        json_list = json.load(open("level_list.json"))
         level_list = []
-        for root, dirs, files in os.walk(folder):
-            for file in files:
-                if file.endswith(".ipe"):
-                    level_list.append(os.path.join(root, file))
+        for level in json_list:
+            level_list.append(Level(level["filename"], level["title"]))
         return level_list
 
-    def load_current_level(self):
-        filename = self.level_list[self.current_level]
-        level_json = ipe_to_json(filename, self.height)
-        self.physics = Physics.from_json(level_json, self.FPS)
+    def preview_current_level(self):
+        self.state = 'preview'
 
-    def load_next_level(self):
+    def start_current_level(self):
+        self.state = 'ingame'
+        level = self.level_list[self.current_level]
+        self.physics = Physics.from_json(level.get_json(self.height), self.FPS)
+
+    def preview_next_level(self):
         self.current_level = (self.current_level + 1) % len(self.level_list)
-        self.load_current_level()
+        self.preview_current_level()
  
-    def load_previous_level(self):
+    def preview_previous_level(self):
         self.current_level = (self.current_level - 1) % len(self.level_list)
-        self.load_current_level()
+        self.preview_current_level()
  
     def on_init(self):
         pygame.init()
         pygame.time.Clock().tick(self.FPS)
+        self.font = pygame.font.SysFont(None, 96)
         self._display_surf = pygame.display.set_mode(self.size, pygame.DOUBLEBUF)
         self._running = True
         Orb.sprite_image = pygame.image.load("images/orbs.png").convert()
         Orb.sprite_image.set_colorkey((0,0,0))
-        self.load_current_level()
+        self.preview_current_level()
  
     def on_event(self, event):
         if event.type == pygame.QUIT:
@@ -137,23 +152,45 @@ class App:
         if event.key == K_ESCAPE:
             self._running = False
         elif event.key == K_r:
-            self.load_current_level()
+            self.start_current_level()
         elif event.key == K_UP:
-            self.load_next_level()
+            self.preview_next_level()
         elif event.key == K_DOWN:
-            self.load_previous_level()
+            self.preview_previous_level()
         else:
-            self.physics.flip_player_polarity()
+            if self.state == 'preview':
+                self.start_current_level()
+            elif self.state == 'success':
+                self.preview_next_level()
+            else:
+                self.physics.flip_player_polarity()
 
     def on_loop(self):
-        self.physics.simulate()
-        if self.physics.win:
-            self.load_next_level()
+        if self.state == 'ingame':
+            self.physics.simulate()
+            if self.physics.win:
+                self.state = 'success'
 
     def on_render(self):
         self._display_surf.fill((0, 0, 0))
-        self.physics.render(self._display_surf)
+        if self.state == 'preview':
+            level = self.level_list[self.current_level]
+            self.render_centered_text(f"Level {self.current_level}", 250)
+            self.render_centered_text(f"{level.title}", 400)
+        elif self.state == 'success':
+            self.render_centered_text("Success!", 300)
+        else:
+            self.physics.render(self._display_surf)
         pygame.display.flip()
+
+    def render_centered_text(self, text, ypos):
+        img = self.font.render(text, True, (255, 255, 255))
+        xpos = (self.width - img.get_width())//2
+        self._display_surf.blit(img, (xpos, ypos))
+
+    def render_text(self, text, pos):
+        img = self.font.render(text, True, (255, 255, 255))
+        self._display_surf.blit(img, pos)
 
     def on_cleanup(self):
         pygame.quit()

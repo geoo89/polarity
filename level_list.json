@@ -1,0 +1,26 @@
+[
+	{
+		"title": "Wait and see",
+		"filename": "levels/waitandsee.ipe"
+	},
+	{
+		"title": "Don't just wait and see",
+		"filename": "levels/dontjustwaitandsee.ipe"
+	},
+	{
+		"title": "Repel and attract",
+		"filename": "levels/repelandattract.ipe"
+	},
+	{
+		"title": "Particle Accelerator",
+		"filename": "levels/particleaccelerator.ipe"
+	},
+	{
+		"title": "Hold the line",
+		"filename": "levels/holdtheline.ipe"
+	},
+	{
+		"title": "Oscillate Escape",
+		"filename": "levels/oscillateescape.ipe"
+	}
+]

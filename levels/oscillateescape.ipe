@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20211120172418" modified="D:20211120175658"/>
+<info created="D:20211120175814" modified="D:20211121002747"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -220,13 +220,13 @@ h
 <dashstyle name="dash dotted" value="[4 2 1 2] 0"/>
 <dashstyle name="dash dot dotted" value="[4 2 1 2 1 2] 0"/>
 <textsize name="large" value="\large"/>
+<textsize name="small" value="\small"/>
+<textsize name="tiny" value="\tiny"/>
 <textsize name="Large" value="\Large"/>
 <textsize name="LARGE" value="\LARGE"/>
 <textsize name="huge" value="\huge"/>
 <textsize name="Huge" value="\Huge"/>
-<textsize name="small" value="\small"/>
 <textsize name="footnote" value="\footnotesize"/>
-<textsize name="tiny" value="\tiny"/>
 <textstyle name="center" begin="\begin{center}" end="\end{center}"/>
 <textstyle name="itemize" begin="\begin{itemize}" end="\end{itemize}"/>
 <textstyle name="item" begin="\begin{itemize}\item{}" end="\end{itemize}"/>
@@ -254,16 +254,26 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<use layer="alpha" name="mark/disk(sx)" pos="96 64" size="normal" stroke="blue"/>
-<use name="mark/disk(sx)" pos="96 192" size="normal" stroke="blue"/>
-<use name="mark/disk(sx)" pos="192 64" size="normal" stroke="red"/>
-<use name="mark/disk(sx)" pos="192 192" size="normal" stroke="red"/>
-<use name="mark/disk(sx)" pos="288 192" size="normal" stroke="blue"/>
-<use name="mark/disk(sx)" pos="288 64" size="normal" stroke="blue"/>
-<use name="mark/disk(sx)" pos="384 64" size="normal" stroke="red"/>
-<use name="mark/disk(sx)" pos="384 192" size="normal" stroke="red"/>
-<use name="mark/disk(sx)" pos="480 192" size="normal" stroke="blue"/>
-<use name="mark/disk(sx)" pos="480 64" size="normal" stroke="blue"/>
-<use name="mark/box(sx)" pos="32 128" size="normal" stroke="darkred"/>
+<use layer="alpha" matrix="1 0 0 1 320 80" name="mark/box(sx)" pos="64 96" size="normal" stroke="blue"/>
+<use matrix="1 0 0 1 32 0" name="mark/disk(sx)" pos="234.334 300.952" size="normal" stroke="blue"/>
+<use matrix="1 0 0 1 32 0" name="mark/disk(sx)" pos="306.638 313.701" size="normal" stroke="blue"/>
+<use matrix="1 0 0 1 32 0" name="mark/disk(sx)" pos="370.221 276.991" size="normal" stroke="blue"/>
+<use matrix="1 0 0 1 32 0" name="mark/disk(sx)" pos="395.331 208" size="normal" stroke="blue"/>
+<use matrix="1 0 0 1 32 0" name="mark/disk(sx)" pos="370.221 139.009" size="normal" stroke="blue"/>
+<use matrix="1 0 0 1 32 0" name="mark/disk(sx)" pos="306.638 102.299" size="normal" stroke="blue"/>
+<use matrix="1 0 0 1 32 0" name="mark/disk(sx)" pos="234.334 115.048" size="normal" stroke="blue"/>
+<use matrix="1 0 0 1 32 0" name="mark/disk(sx)" pos="187.142 171.291" size="normal" stroke="blue"/>
+<use matrix="1 0 0 1 32 0" name="mark/disk(sx)" pos="187.142 244.709" size="normal" stroke="blue"/>
+<path matrix="1 0 0 1 16 -16" stroke="black" arrow="normal/normal">
+368 192 m
+368 208 l
+</path>
+<path stroke="black">
+192 240 m
+192 176 l
+128 176 l
+128 240 l
+h
+</path>
 </page>
 </ipe>

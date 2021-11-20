@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20211120175814" modified="D:20211120221410"/>
+<info created="D:20211120175814" modified="D:20211121002056"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -220,13 +220,13 @@ h
 <dashstyle name="dash dotted" value="[4 2 1 2] 0"/>
 <dashstyle name="dash dot dotted" value="[4 2 1 2 1 2] 0"/>
 <textsize name="large" value="\large"/>
+<textsize name="small" value="\small"/>
+<textsize name="tiny" value="\tiny"/>
 <textsize name="Large" value="\Large"/>
 <textsize name="LARGE" value="\LARGE"/>
 <textsize name="huge" value="\huge"/>
 <textsize name="Huge" value="\Huge"/>
-<textsize name="small" value="\small"/>
 <textsize name="footnote" value="\footnotesize"/>
-<textsize name="tiny" value="\tiny"/>
 <textstyle name="center" begin="\begin{center}" end="\end{center}"/>
 <textstyle name="itemize" begin="\begin{itemize}" end="\end{itemize}"/>
 <textstyle name="item" begin="\begin{itemize}\item{}" end="\end{itemize}"/>
@@ -254,20 +254,20 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<use layer="alpha" name="mark/box(sx)" pos="64 96" size="normal" stroke="darkred"/>
-<use name="mark/disk(sx)" pos="96 128" size="normal" stroke="blue"/>
-<use name="mark/disk(sx)" pos="96 64" size="normal" stroke="blue"/>
-<use matrix="1 0 0 1 144 -16" name="mark/disk(sx)" pos="176 144" size="normal" stroke="red"/>
-<path stroke="black">
-256 256 m
-256 192 l
-384 192 l
-384 256 l
-h
+<use layer="alpha" matrix="1 0 0 1 96 -32" name="mark/box(sx)" pos="64 96" size="normal" stroke="darkred"/>
+<use matrix="1 0 0 1 240 -16" name="mark/disk(sx)" pos="96 128" size="normal" stroke="blue"/>
+<use matrix="1 0 0 1 0 -60" name="mark/disk(sx)" pos="80 128" size="normal" stroke="red"/>
+<path matrix="1 0 0 1 -48 -44" stroke="black" arrow="normal/normal">
+208 108 m
+196 108 l
 </path>
-<path stroke="black" arrow="normal/normal">
-64 96 m
-80 96 l
+<use matrix="1 0 0 1 320 88" name="mark/disk(sx)" pos="96 128" size="normal" stroke="blue"/>
+<path stroke="black">
+544 0 m
+544 448 l
+656 448 l
+656 0 l
+h
 </path>
 </page>
 </ipe>

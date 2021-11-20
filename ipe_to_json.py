@@ -57,9 +57,9 @@ def ipe_to_json(filename, max_y):
 			pts = np.array([apply_transformation(path, str_to_pos(pos)) for pos in coords[:4]])
 			rect = [
 				np.min(pts[:,0]),
-				max_y - np.max(pts[:,1]),
+				max_y - min(max_y, np.max(pts[:,1])),
 				np.max(pts[:,0]) - np.min(pts[:,0]),
-				np.max(pts[:,1]) - np.min(pts[:,1]),
+				min(max_y, np.max(pts[:,1])) - np.min(pts[:,1]),
 			]
 			goals.append(rect)
 
