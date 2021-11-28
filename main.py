@@ -22,10 +22,14 @@ class Orb:
         self.is_player = is_player
 
     def render(self, surface):
-        if self.charge < 0:
-            rect = Rect(0, 0, 64, 64)  # blue
-        else:
-            rect = Rect(64, 0, 64, 64)  # red
+        image_x = 0
+        if self.charge > 0:
+            image_x += 64   # blue -> red
+        if self.mass < 2:
+            image_x += 128  # decrease size
+        if self.mass < 0.5:
+            image_x += 128  # decrease size
+        rect = Rect(image_x, 0, 64, 64)
         pos = (int(self.pos[0]-32), int(self.pos[1]-32))
         surface.blit(Orb.sprite_image, pos, rect)
 
@@ -108,6 +112,9 @@ class App:
         self.physics = None
         self.font = None
         self.state = 'preview'
+        self.clock = pygame.time.Clock()
+        self.physics_updates_per_frame = 8
+        self.is_paused = False
 
     def get_level_list(self, folder):
         json_list = json.load(open("level_list.json"))
@@ -134,12 +141,11 @@ class App:
  
     def on_init(self):
         pygame.init()
-        pygame.time.Clock().tick(self.FPS)
         self.font = pygame.font.SysFont(None, 96)
-        self._display_surf = pygame.display.set_mode(self.size, pygame.DOUBLEBUF)
+        self._display_surf = pygame.display.set_mode(self.size, pygame.DOUBLEBUF, 24)
         self._running = True
-        Orb.sprite_image = pygame.image.load("images/orbs.png").convert()
-        Orb.sprite_image.set_colorkey((0,0,0))
+        Orb.sprite_image = pygame.image.load("images/orbs.png").convert()  # convert_alpha()
+        Orb.sprite_image.set_colorkey((255, 0, 255))
         self.preview_current_level()
  
     def on_event(self, event):
@@ -153,11 +159,13 @@ class App:
             self._running = False
         elif event.key == K_r:
             self.start_current_level()
+        elif event.key == K_p:
+            self.is_paused = not self.is_paused
         elif event.key == K_UP:
             self.preview_next_level()
         elif event.key == K_DOWN:
             self.preview_previous_level()
-        else:
+        elif event.key not in [K_f, K_s]:  # f/s is fast/slow mode
             if self.state == 'preview':
                 self.start_current_level()
             elif self.state == 'success':
@@ -166,8 +174,15 @@ class App:
                 self.physics.flip_player_polarity()
 
     def on_loop(self):
-        if self.state == 'ingame':
-            self.physics.simulate()
+        if self.state == 'ingame' and not self.is_paused:
+            physics_updates_per_frame = self.physics_updates_per_frame
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_f]:    # fast forward
+                physics_updates_per_frame *= 4
+            if keys[pygame.K_s]:    # slow mode
+                physics_updates_per_frame //= 4
+            for _ in range(physics_updates_per_frame):
+                self.physics.simulate()
             if self.physics.win:
                 self.state = 'success'
 
@@ -204,6 +219,7 @@ class App:
                 self.on_event(event)
             self.on_loop()
             self.on_render()
+            self.clock.tick(self.FPS)
         self.on_cleanup()
  
 

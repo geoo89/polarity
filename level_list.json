@@ -1,15 +1,15 @@
 [
 	{
-		"title": "Wait and see",
-		"filename": "levels/waitandsee.ipe"
-	},
-	{
-		"title": "Don't just wait and see",
-		"filename": "levels/dontjustwaitandsee.ipe"
-	},
-	{
 		"title": "Repel and attract",
 		"filename": "levels/repelandattract.ipe"
+	},
+	{
+		"title": "Out of Orbit",
+		"filename": "levels/outoforbit.ipe"
+	},
+	{
+		"title": "Orbit Hopper",
+		"filename": "levels/orbithopper.ipe"
 	},
 	{
 		"title": "Particle Accelerator",
@@ -22,5 +22,17 @@
 	{
 		"title": "Oscillate Escape",
 		"filename": "levels/oscillateescape.ipe"
+	},
+	{
+		"title": "Orbits",
+		"filename": "levels/orbits.ipe"
+	},
+	{
+		"title": "Swap",
+		"filename": "levels/swap.ipe"
+	},
+	{
+		"title": "Knockout",
+		"filename": "levels/knockout.ipe"
 	}
 ]

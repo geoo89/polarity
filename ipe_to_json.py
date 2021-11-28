@@ -4,19 +4,19 @@ import re
 import numpy as np
 
 sizes = {
-	"large" : 2, 
+	"large" : 4, 
 	"normal" : 1, 
-	"small" : 0.5, 
-	"tiny" : 0.25, 
+	"small" : 0.25, 
+	"tiny" : 0.0625, 
 }
 
 charges = {
-	"darkblue" : -2,
+	"darkblue" : -1,
 	"blue" : -1,
-	"lightblue" : -0.5,
-	"pink" : 0.5,
+	"lightblue" : -1,
+	"pink" : 1,
 	"red" : 1,
-	"darkred" : 2,
+	"darkred" : 1,
 }
 
 props = {
@@ -73,7 +73,7 @@ def ipe_to_json(filename, max_y):
 		pos[1] = max_y - pos[1]
 		orb = {
 			"pos" : pos,
-			"charge" : charges[node["stroke"]], 
+			"charge" : charges[node["stroke"]] * sizes[node["size"]], 
 			"mass" : sizes[node["size"]],
 			"velocity" : vec,
 		}

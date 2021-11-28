@@ -8,5 +8,12 @@ from positive charge to negative, and vice versa.
 
 - Any key (except the keys below): flip polarity
 - R: restart level
+- F: fast forward
+- S: slow mode
+- P: pause
 - UP: Skip to next level
 - DOWN: Skip to previous level
+
+## Editor
+
+Use [IPE](https://ipe.otfried.org/) to create and edit levels.
